@@ -1,0 +1,12 @@
+Apple,52
+Bread,67
+Broccoli,35
+Brownie,466
+Burger,354
+Celery,16
+Doughnut,270
+Egg,77
+Milk,42
+Peanut,567
+Pizza,285
+Rice,130

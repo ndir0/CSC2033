@@ -1,0 +1,6 @@
+How many steps should you try to do a day?, 10000
+How much exercise should you do a week?,150 minutes of moderate intensity activity a week or 75 minutes of vigorous intensity activity a week
+What is a moderate exercise?, brisk / walking / water / aerobics / riding a bike / dancing / doubles tennis / pushing a lawn mower / hiking / rollerblading
+What is a viguous exercise?, running / swimming / riding a bike fast or on hills / walking up the stairs / football / rugby / netball / hockey / skipping / aerobics / gymnastics / martial arts
+What is the MHS recommended minimum amount of exercise you should do a week?, 150 minuites of moderately intense exercise a week
+If exercise doesent make you loose weight you should give up?, False

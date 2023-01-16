@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% from 'bootstrap5/form.html' import render_field %}
+
+{% block content %}
+<div class="container">
+  <div class="row card-row">
+    <div class="col-12 col-sm-11 col-md-9 col-lg-7 col-xl-6 col-xxl-5 mx-auto my-auto">
+      <div class="card">
+        <div class="card-header text-center">
+          <h1>Edit Recipe</h1>
+        </div>
+        <div class="card-body">
+          {% with messages = get_flashed_messages(with_categories=true) %}
+          {% for category, message in messages %}
+          {% if category == 'form' %}
+          <div class="alert alert-danger">
+            {{ message }}
+          </div>
+          {% endif %}
+          {% endfor %}
+          {% endwith %}
+
+          <form novalidate method="post">
+            {{ form.csrf_token() }}
+            {{ render_field(form.name) }}
+            <div class="row">
+              <div class="col-12 col-sm-6">
+                {{ render_field(form.calories) }}
+              </div>
+              <div class="col-12 col-sm-6">
+                {{ render_field(form.protein) }}
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12 col-sm-6">
+                {{ render_field(form.carbohydrate) }}
+              </div>
+              <div class="col-12 col-sm-6">
+                {{ render_field(form.fat) }}
+              </div>
+            </div>
+            {{ render_field(form.body, rows=10) }}
+            <hr>
+            <div class="d-flex justify-content-between" style="flex-wrap: wrap;">
+              <div>
+                <a class="btn btn-secondary {% if not request.args.get('back') %}disabled{% endif %}" href="{{ request.args.get('back') }}">
+                  <i class="fas fa-arrow-left"></i>
+                </a>
+              </div>
+              <div>
+                <button type="submit" class="btn btn-primary">
+                  <i class="fas fa-check fa-fw me-1"></i>Submit
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

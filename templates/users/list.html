@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+  <div class="row card-row">
+    <div class="col-12 col-xxl-10 mx-auto my-auto">
+      <div class="card">
+        <div class="card-header text-center">
+          <h1>Accounts</h1>
+        </div>
+        <div class="card-body">
+          <div class="input-group mb-3">
+            <input class="form-control" id="search-input" type="text" placeholder="Search Accounts">
+            <button class="btn btn-primary" id="search-button" type="button">
+              <i class="fas fa-search fa-fw me-sm-1"></i><span class="d-none d-sm-inline">Search</span>
+            </button>
+          </div>
+          {% if accounts %}
+          <div class="row row-cols-1 row-cols-md-2 row-cols-xl-3 g-4">
+            {% for account in accounts %}
+            <div class="col">
+              <div class="card">
+                <div class="card-header text-center">
+                  <h2 class="m-1 h5">{{ account.full_name }}</h2>
+                </div>
+                <div class="card-body">
+                  <p class="m-0"><strong>Email:</strong> {{ account.email }}</p>
+                  <p class="m-0"><strong>Date of Birth:</strong> {{ account.date_of_birth }}</p>
+                  <p class="m-0"><strong>Gender:</strong> {{ account.gender.name|title }}</p>
+                  <p class="m-0"><strong>Admin:</strong> {{ account.is_admin }}</p>
+                  {% if account.last_login %}
+                  <p class="m-0"><strong>Last login:</strong> {{ account.last_login.strftime("%d/%m/%Y %H:%M:%S") }}</p>
+                  {% else %}
+                  <p class="m-0"><strong>Last login:</strong> Never</p>
+                  {% endif %}
+                  <p><strong>Updated on:</strong> {{ account.updated_on.strftime("%d/%m/%Y %H:%M:%S") }}</p>
+                  <a class="btn btn-sm btn-info" href="{{ url_for('users.profile', id=account.id) }}?admin=true" data-toggle="tooltip" title="View Account">
+                    <i class="fas fa-eye fa-fw"></i>
+                  </a>
+                  <a class="btn btn-sm btn-warning" href="{{ url_for('users.edit', id=account.id) }}?back={{ request.path }}" data-toggle="tooltip"
+                    title="Edit Account">
+                    <i class="fas fa-pen fa-fw"></i>
+                  </a>
+                  <a class="btn btn-sm btn-danger" href="{{ url_for('users.delete', id=account.id) }}?back={{ request.path }}" data-toggle="tooltip"
+                    title="Delete Acount">
+                    <i class="fas fa-trash fa-fw"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+            {% endfor %}
+          </div>
+          {% else %}
+          <p class="text-center m-0">
+            There are no accounts to be displayed!
+          </p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

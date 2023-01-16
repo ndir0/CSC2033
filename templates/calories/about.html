@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+  <div class="row card-row">
+    <div class="col-12 mx-auto my-auto">
+      <div class="card">
+        <div class="card-header text-center">
+          <h1>A Guide to Calories</h1>
+        </div>
+        <div class="card-body">
+          <h2 class="h4">What are calories?</h2>
+          <p>
+            A calorie is the measure of energy stored in food or drink. If we consume more calories than we use up our
+            bodies store the calories as body fat. Over a prolonged period this can lead to an increase in weight. In
+            the UK the NHS recommends that the average man needs around 2,500kcal a day to maintain a healthy weight.
+            The average woman should consume around 2,000kcal a day. In the UK the body mass index (BMI) is used to help
+            track your calorie intake as the values you should consume depend on:
+          </p>
+          <ul class="mb-4">
+            <li>Age</li>
+            <li>Size</li>
+            <li>Level of Physical Activity</li>
+            <li>And more...</li>
+          </ul>
+          <h2 class="h4">Balancing calorie intake and outtake</h2>
+          <p>
+            Our bodies require energy, that's why they need calories. By eating and drinking we consume energy. Which is
+            used throughout the day through everyday movements. To maintain a stable weight energy consumed must be
+            roughly equal to energy used. If you consume too much energy one day you should try to consume less over the
+            following days. Knowing the the calorie content can help with this.
+          </p>
+          <a class="btn-link" href="https://www.nhs.uk/live-well/eat-well/what-does-100-calories-look-like/" target="_blank">
+            NHS - What does 100 calories look like
+          </a>
+          <h2 class="h4 mt-4">Healthy weight loss or gain</h2>
+          <p>
+            The key to loosing or gaining weight safely is balance your intake and consumption of calories. This can be
+            done by monitoring the amount of food you consume and the calories within that food. In the UK the calorie
+            content of many shop-bought foods is stated on the packaging.
+          </p>
+          <h3 class="h5">Loosing weight healthily</h3>
+          <p>
+            When trying to loose weight healthily it is vitaly important that in combination with controlling your calorie
+            intake you also increase the amount of exercise undertaken during your day. Along with speaking to a medical
+            professional.
+          </p>
+          <h3 class="h5">Gaining weight healthy</h3>
+          <p>
+            Weighing too little can contribute to a weakened immune system, fragile bones and feeling tired. Your diet may
+            be the problem so the best way to gain weight healthily is to switch to a healthy balanced diet that provides
+            the right amount of calories for your age, height and how active you are can help you to achieve a healthy weight.
+          </p>
+          <p class="mb-4">
+            Try to avoid relying on high calorie foods full of saturated fat and sugar (chocolate, cake, sugary drinks).
+            These foods can increase body fat instead of body mass and increase your risk of developing high levels of
+            cholesterol in your blood.
+          </p>
+          <h2 class="h4">Recommended Daily Calorie Intake</h2>
+          {% if current_user.is_authenticated %}
+          {% if bmr %}
+          <p class="mb-0">Your recommended daily calorie intake is <span class="badge bg-primary">{{ bmr }}kcal</span></p>
+          {% else %}
+          <p class="mb-0 text-muted">You need to track some progress before your recommended daily calorie intake can be calculated!</p>
+          {% endif %}
+          {% else %}
+          <p class="mb-0 text-muted">You need to be logged in to view your recommended daily calorie intake!</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

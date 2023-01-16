@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+  <div class="row card-row">
+    <div class="col-12 col-xxl-10 mx-auto my-auto">
+      <div class="card">
+        <div class="card-header text-center">
+          <h1>{{ account.first_name }} {{ account.last_name }}</h1>
+        </div>
+        <div class="card-body">
+          <div class="container">
+            <div class="row">
+              <div class="col-md-4 col-lg-3 px-0 pe-md-2 pb-3">
+                {% if current_user.is_admin and request.args.admin %}
+                <a class="btn btn-dark btn-detail" href="{{ url_for('users.list') }}">
+                  <i class="fas fa-arrow-left fa-fw mr-1"></i>
+                  Back to Accounts
+                </a>
+                {% endif %}
+                {% if current_user.id == account.id %}
+                <a class="btn btn-secondary btn-detail" href="{{ url_for('users.change_password') }}?back={{ request.path }}">
+                  <i class="fas fa-key fa-fw mr-1"></i>
+                  Change Password
+                </a>
+                {% endif %}
+                {% if current_user.is_admin %}
+                <a class="btn btn-primary btn-detail" href="{{ url_for('users.change_permissions', id=account.id) }}?back={{ request.path }}">
+                  <i class="fas fa-unlock-alt fa-fw mr-1"></i>
+                  Change Permissions
+                </a>
+                {% endif %}
+                {% if current_user.id == account.id or current_user.is_admin %}
+                <a class="btn btn-warning btn-detail" href="{{ url_for('users.edit', id=account.id) }}?back={{ request.path }}">
+                  <i class="fas fa-pen fa-fw mr-1"></i>
+                  Edit Account
+                </a>
+                <a class="btn btn-danger btn-detail" href="{{ url_for('users.delete', id=account.id) }}?back={{ request.path }}">
+                  <i class="fas fa-trash fa-fw mr-1"></i>
+                  Delete Account
+                </a>
+                {% endif %}
+              </div>
+              <div class="col-md-8 col-lg-9 px-0 ps-md-2">
+                <div class="table-mobile">
+                  <table class="table table-striped table-detail" id="mobileTable">
+                    <tbody>
+                      <tr>
+                        <th scope="row">Account ID</th>
+                        <td>{{ account.id }}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">First Name</th>
+                        <td>{{ account.first_name }}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Last Name</th>
+                        <td>{{ account.last_name }}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Email</th>
+                        <td>{{ account.email }}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Date of Birth</th>
+                        <td>{{ account.date_of_birth.strftime('%d/%m/%Y') }}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Gender</th>
+                        <td>{{ account.gender.name|title }}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Admin</th>
+                        <td>{{ account.is_admin }}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Created on</th>
+                        <td>{{ account.created_on }}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Updated on</th>
+                        <td>{{ account.updated_on }}</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% from 'bootstrap5/form.html' import render_field %}
+
+{% block content %}
+<div class="container">
+  <div class="row card-row">
+    <div class="col-12 col-sm-11 col-md-9 col-lg-7 col-xl-6 col-xxl-5 mx-auto my-auto">
+      <div class="card">
+        <div class="card-header text-center">
+          <h1>Add Progress</h1>
+        </div>
+        <div class="card-body">
+          {% with messages = get_flashed_messages(with_categories=true) %}
+          {% for category, message in messages %}
+          {% if category == 'form' %}
+          <div class="alert alert-danger">
+            {{ message }}
+          </div>
+          {% endif %}
+          {% endfor %}
+          {% endwith %}
+
+          <form novalidate method="post">
+            {{ form.csrf_token() }}
+            <div class="row">
+              <div class="col-12 col-sm-6">
+                {{ render_field(form.height ) }}
+              </div>
+              <div class="col-12 col-sm-6">
+                {{ render_field(form.weight) }}
+              </div>
+            </div>
+            <div>
+              <label for="level_of_activity" class="form-label d-block">Level of Activity</label>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="level_of_activity" id="inlineRadio1" value="1">
+                <label class="form-check-label" for="inlineRadio1">1</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="level_of_activity" id="inlineRadio2" value="2">
+                <label class="form-check-label" for="inlineRadio2">2</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="level_of_activity" id="inlineRadio3" value="3">
+                <label class="form-check-label" for="inlineRadio3">3<label>
+              </div>
+            </div>
+            <hr>
+            <div class="d-flex justify-content-between" style="flex-wrap: wrap;">
+              <div>
+                <a class="btn btn-secondary {% if not request.args.get('back') %}disabled{% endif %}" href="{{ request.args.get('back') }}">
+                  <i class="fas fa-arrow-left"></i>
+                </a>
+              </div>
+              <div>
+                <button type="submit" class="btn btn-primary">
+                  <i class="fas fa-check fa-fw me-1"></i>Submit
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

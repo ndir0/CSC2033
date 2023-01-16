@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+  <div class="row card-row">
+    <div class="col-12 col-sm-11 col-md-9 col-lg-7 col-xl-6 col-xxl-5 mx-auto my-auto">
+      <div class="card">
+        <div class="card-header text-center">
+          <h1>Change Permissions</h1>
+        </div>
+        <div class="card-body">
+          <form novalidate method="post">
+            <div class="text-center mb-3">
+              Are you sure you want to make {{ account.full_name }} {{ new_role }}?
+            </div>
+            <hr>
+            <div class="d-flex justify-content-between" style="flex-wrap: wrap;">
+              <div>
+                <a class="btn btn-secondary {% if not request.args.get('back') %}disabled{% endif %}" href="{{ request.args.get('back') }}">
+                  <i class="fas fa-arrow-left"></i>
+                </a>
+              </div>
+              <div>
+                <button type="submit" class="btn btn-primary">
+                  <i class="fas fa-check fa-fw me-1"></i>Submit
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

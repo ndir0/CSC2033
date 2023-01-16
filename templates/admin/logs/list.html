@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+  <div class="row card-row">
+    <div class="col-12 col-xxl-10 mx-auto my-auto">
+      <div class="card">
+        <div class="card-header text-center">
+          <h1>Logs</h1>
+        </div>
+        <div class="card-body">
+          {% if logs %}
+          <div class="table-mobile mb-3">
+            <table class="table table-striped table-detail" id="mobileTable">
+              <tbody>
+                {% for log in logs %}
+                <tr>
+                  <th scope="row">{{ log[:19] }}</th>
+                  <td>{{ log[20:] }}</td>
+                </tr>
+                {% endfor %}
+              </tbody>
+            </table>
+          </div>
+          <div class="text-center">
+            <a class="btn btn-danger" href="{{ url_for('admin.clear_logs') }}?back={{ request.path }}">
+              <i class="fas fa-trash fa-fw me-1"></i>Clear Logs
+            </a>
+          </div>
+          {% else %}
+          <p class="text-danger text-center m-0">There are no logs to be displayed!</p>
+          {% endif %}
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock content %}

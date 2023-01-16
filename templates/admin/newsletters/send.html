@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% from 'bootstrap5/form.html' import render_field %}
+
+{% block content %}
+<div class="container">
+  <div class="row card-row">
+    <div class="col-12 col-sm-11 col-md-9 col-lg-7 col-xl-6 col-xxl-5 mx-auto my-auto">
+      <div class="card">
+        <div class="card-header text-center">
+          <h1>Send Newsletter</h1>
+        </div>
+        <div class="card-body">
+          {% with messages = get_flashed_messages(with_categories=true) %}
+          {% for category, message in messages %}
+          {% if category == 'form' %}
+          <div class="alert alert-danger">
+            {{ message }}
+          </div>
+          {% endif %}
+          {% endfor %}
+          {% endwith %}
+
+          <div class="accordion mb-3" id="newsletterAccordion">
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="heading">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapse" aria-expanded="true"
+                  aria-controls="collapse">
+                  {% if subscriber_emails|length == 1 %}
+                  There is 1 newsletter subscriber
+                  {% else %}
+                  There are {{ subscriber_emails|length }} newsletter subscribers
+                  {% endif %}
+                </button>
+              </h2>
+              <div id="collapse" class="accordion-collapse collapse" aria-labelledby="heading" data-bs-parent="#newsletterAccordion">
+                <div class="accordion-body">
+                  {% for subscriber_email in subscriber_emails %}
+                  <p class="mb-0">{{ subscriber_email }}</p>
+                  {% endfor %}
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <form id="sendMailForm" novalidate method="post">
+            {{ form.csrf_token() }}
+            {{ render_field(form.subject) }}
+            {{ render_field(form.body, rows=10) }}
+            <p class="text-muted text-center"><small>Sending newsletters might be slow. Please wait!</small></p>
+            <hr>
+            <div class="d-flex justify-content-center">
+              <button id="sendMailButton" type="submit" class="btn btn-primary">
+                <i class="fas fa-paper-plane fa-fw me-1"></i>Send
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

@@ -1,0 +1,87 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+  <div class="row card-row">
+    <div class="col-12 mx-auto my-auto">
+      <div class="card">
+        <div class="card-header text-center">
+          <h1>Progress Tracking</h1>
+        </div>
+        <div class="card-body">
+          <div class="row">
+            <div class="col-12 col-lg-6 mb-3 mb-lg-0">
+              <h2 class="h4">BMI</h2>
+              {% if current_user.is_authenticated %}
+              {% if bmi %}
+              <p class="mb-0">Your body mass index is <span class="badge bg-{{ bmi_status[0] }}">{{ bmi }}</span></p>
+              <p class="mb-0">This indicates that you are likely {{ bmi_status[1] }}.</p>
+              {% else %}
+              <p class="mb-0 text-muted">You need to track some progress before your BMI can be calculated!</p>
+              {% endif %}
+              {% else %}
+              <p class="text-muted">You need to be logged in to view your BMI!</p>
+              {% endif %}
+            </div>
+            <div class="col-12 col-lg-6">
+              <h2 class="h4">Recommended Daily Calorie Intake</h2>
+              {% if current_user.is_authenticated %}
+              {% if bmr %}
+              <p class="mb-0">Your recommended daily calorie intake is <span class="badge bg-primary">{{ bmr }}kcal</span></p>
+              {% else %}
+              <p class="mb-0 text-muted">You need to track some progress before your recommended daily calorie intake can be calculated!</p>
+              {% endif %}
+              {% else %}
+              <p class="mb-0 text-muted">You need to be logged in to view your recommended daily calorie intake!</p>
+              {% endif %}
+            </div>
+          </div>
+          <div class="table-responsive-md mt-5">
+            <table class="table table-striped">
+              <thead>
+                <tr>
+                  <th scope="col">Height</th>
+                  <th scope="col">Weight</th>
+                  <th class="d-md-none" scope="col">LA</th>
+                  <th class="d-none d-md-table-cell" scope="col">Level of Activity</th>
+                  <th scope="col">Date</th>
+                  <th scope="col">
+                    <a class="btn btn-sm btn-success {% if not current_user.is_authenticated %}disabled{% endif %}"
+                      href="{{ url_for('calories.add_progress') }}?back={{ request.path }}" title="Add Progress">
+                      <i class="fas fa-plus fa-fw me-lg-1"></i><span class="d-none d-lg-inline">Add Progress</span>
+                    </a>
+                  </th>
+                </tr>
+              </thead>
+              {% if entries %}
+              <tbody>
+                {% for entry in entries %}
+                <tr>
+                  <td>{{ entry.height }}</td>
+                  <td>{{ entry.weight }}</td>
+                  <td>{{ entry.level_of_activity }}</td>
+                  <td>{{ entry.created_on.strftime("%d/%m/%Y %H:%M:%S") }}</td>
+                  <td>
+                    <a class="btn btn-sm btn-danger" href="{{ url_for('calories.delete_progress', id=entry.id) }}?back={{ request.path }}" title="Delete Entry">
+                      <i class="fas fa-trash fa-fw me-lg-1"></i><span class="d-none d-lg-inline">Delete Entry</span>
+                    </a>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+              {% endif %}
+            </table>
+            {% if not entries %}
+            {% if current_user.is_authenticated %}
+            <p class="mb-0 text-muted text-center">There is no progress history that can be displayed!</p>
+            {% else %}
+            <p class="mb-0 text-muted text-center">You need to be logged in to view your progress history!</p>
+            {% endif %}
+            {% endif %}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

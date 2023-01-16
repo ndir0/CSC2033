@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+  <div class="row card-row">
+    <div class="col-12 mx-auto my-auto">
+      <div class="card">
+        <img class="card-img-top" src="{{url_for('static', filename='images/about_us.png')}}" alt="About us text surrounded by hearts">
+        <div class="card-body text-center">
+          <h2 class="h4">Obesity is an increasingly common problem</h2>
+          <p class="card-text mb-4">
+            Our mission is to raise awareness and understanding of obesity. We aim to achieve this by
+            providing information through our interactive website. According to the World Health
+            Organization, 25% of the world population are overweight. It is important that we
+            reduce this statistic.
+          </p>
+          <h2 class="h4">Sustainable Development Goals</h2>
+          <p class="card-text">
+            The Sustainable Development Goals or Global Goals are a collection of 17 interlinked
+            global goals designed to be a "blueprint to achieve a better and more sustainable
+            future for all". The SDGs were set up in 2015 by the United Nations General Assembly
+            and are intended to be achieved by the year 2030. Obesity falls under one of their
+            goals. Therefore, it is crucial that we help to accomplish this.
+          </p>
+          <a class="btn btn-success mb-1 mb-sm-0" href="{{ url_for('subscribe') }}"><i class="fas fa-newspaper me-2"></i>Subscribe to Newsletter</a>
+          <a class="btn btn-warning mb-1 mb-sm-0" href="https://www.obesityuk.org.uk/donate/" target="_blank"><i class="fas fa-donate me-2"></i>Donate</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

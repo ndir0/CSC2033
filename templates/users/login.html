@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% from 'bootstrap5/form.html' import render_field %}
+
+{% block content %}
+<div class="container">
+  <div class="row card-row">
+    <div class="col-12 col-sm-11 col-md-9 col-lg-7 col-xl-6 col-xxl-5 mx-auto my-auto">
+      <div class="card">
+        <div class="card-header text-center">
+          <h1>Log in</h1>
+        </div>
+        <div class="card-body">
+          {% with messages = get_flashed_messages(with_categories=true) %}
+          {% for category, message in messages %}
+          {% if category == 'form' %}
+          <div class="alert alert-danger">
+            {{ message }}
+          </div>
+          {% endif %}
+          {% endfor %}
+          {% endwith %}
+
+          <form novalidate method="post">
+            {{ form.csrf_token() }}
+            {{ render_field(form.email) }}
+            {{ render_field(form.password) }}
+            <hr>
+            <div class="d-flex justify-content-between" style="flex-wrap: wrap;">
+              <div style="line-height: 19px;">
+                <a class="btn-link disabled" style="opacity: 0.65; pointer-events: none;">
+                  Forgot your password?
+                </a>
+                <br>
+                <a class="btn-link" href="{{ url_for('users.register') }}?back={{ request.path }}">
+                  Don't have an account?
+                </a>
+              </div>
+              <div>
+                <button type="submit" class="btn btn-primary">
+                  <i class="fas fa-sign-in-alt fa-fw me-1"></i>Log in
+                </button>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
